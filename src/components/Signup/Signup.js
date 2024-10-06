@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
@@ -6,8 +7,9 @@ const Signup = () => {
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [adress, setAdress] = useState('');
   const [number, setNumber] = useState('');
+  const [adress, setAdress] = useState('');
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -43,54 +45,77 @@ const Signup = () => {
 };
 
   return (
-    <div>
-      <h2>Inscription</h2>
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Prénom"
-        value={firstname}
-        onChange={(e) => setFirstname(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Nom"
-        value={lastname}
-        onChange={(e) => setLastname(e.target.value)}
-        required
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Mot de passe"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Adresse"
-        value={adress}
-        onChange={(e) => setAdress(e.target.value)}
-        required
-      />
-      <input
-        type="number"
-        placeholder="Numéro de téléphone"
-        value={number}
-        onChange={(e) => setNumber(e.target.value)}
-        required
-      />
-      <button type="submit">S'inscrire</button>
-    </form>
-    </div>
+    <Container maxWidth="xs">
+      <Box 
+        component="form" 
+        onSubmit={handleSubmit} 
+        sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2 }}
+      >
+        <Typography variant="h4" align="center" gutterBottom>
+          Inscription
+        </Typography>
+        <TextField
+          label="Prénom"
+          fullWidth
+          required
+          margin="normal"
+          value={firstname}
+          onChange={(e) => setFirstname(e.target.value)}
+        />
+        <TextField
+          label="Nom"
+          fullWidth
+          required
+          margin="normal"
+          value={lastname}
+          onChange={(e) => setLastname(e.target.value)}
+        />
+        <TextField
+          label="Email"
+          type="email"
+          fullWidth
+          required
+          margin="normal"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          label="Mot de passe"
+          type="password"
+          fullWidth
+          required
+          margin="normal"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <TextField
+          label="Adresse"
+          type="text"
+          fullWidth
+          required
+          margin="normal"
+          value={adress}
+          onChange={(e) => setAdress(e.target.value)}
+        />
+        <TextField
+          label="Numero de telephone"
+          type="number"
+          fullWidth
+          required
+          margin="normal"
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+        />
+        <Button 
+          type="submit" 
+          fullWidth 
+          variant="contained" 
+          sx={{ mt: 2, backgroundColor: '#007BFF' }}
+        >
+          S'inscrire
+        </Button>
+      </Box>
+    </Container>
   );
 };
 

@@ -1,6 +1,6 @@
 // server.js
 const express = require('express');
-const authRoutes = require('./routes/authRoutes'); // Assurez-vous que le chemin est correct
+const authRoutes = require('./routes/authRoutes');
 const sequelize = require('./config/database');
 
 const app = express();

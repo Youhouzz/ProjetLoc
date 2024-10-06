@@ -43,7 +43,7 @@ User.init({
 }, {
   sequelize,
   modelName: 'User',
-  tableName: 'users', // Assurez-vous que le nom de la table est correct
+  tableName: 'users', 
 });
 
 module.exports = User;

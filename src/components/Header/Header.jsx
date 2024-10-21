@@ -1,37 +1,31 @@
-import React, { useRef } from "react";
-
+import React, { useRef, useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../../styles/header.css";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 
 const navLinks = [
-  {
-    path: "/home",
-    display: "Home",
-  },
-  {
-    path: "/about",
-    display: "About",
-  },
-  {
-    path: "/cars",
-    display: "Cars",
-  },
-
-  {
-    path: "/blogs",
-    display: "Blog",
-  },
-  {
-    path: "/contact",
-    display: "Contact",
-  },
+  { path: "/home", display: "Home" },
+  { path: "/about", display: "About" },
+  { path: "/cars", display: "Cars" },
+  { path: "/blogs", display: "Blog" },
+  { path: "/contact", display: "Contact" },
+  { path: "/profile", display: "Profil" },
 ];
 
 const Header = () => {
   const menuRef = useRef(null);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext); // Utiliser le AuthContext
+  const navigate = useNavigate();
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Retirer le token du localStorage
+    setIsLoggedIn(false); // Mettre à jour l'état dans le contexte
+    navigate('/home'); // Rediriger vers la page d'accueil après la déconnexion
+  };
 
   return (
     <header className="header">
@@ -43,20 +37,27 @@ const Header = () => {
               <div className="header__top__left">
                 <span>Besoin d'aide?</span>
                 <span className="header__top__help">
-                  <i class="ri-phone-fill"></i> +33652166546
+                  <i className="ri-phone-fill"></i> +33652166546
                 </span>
               </div>
             </Col>
 
             <Col lg="6" md="6" sm="6">
               <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                <Link to="/login" className=" d-flex align-items-center gap-1">
-                  <i class="ri-login-circle-line"></i> Connexion
-                </Link>
-
-                <Link to="/signup" className=" d-flex align-items-center gap-1">
-                  <i class="ri-user-line"></i> Inscription
-                </Link>
+                {!isLoggedIn ? (
+                  <>
+                    <Link to="/login" className="d-flex align-items-center gap-1">
+                      <i className="ri-login-circle-line"></i> Connexion
+                    </Link>
+                    <Link to="/signup" className="d-flex align-items-center gap-1">
+                      <i className="ri-user-line"></i> Inscription
+                    </Link>
+                  </>
+                ) : (
+                  <button onClick={handleLogout} className="d-flex align-items-center gap-1">
+                    <i className="ri-logout-box-line"></i> Déconnexion
+                  </button>
+                )}
               </div>
             </Col>
           </Row>
@@ -70,8 +71,8 @@ const Header = () => {
             <Col lg="4" md="3" sm="4">
               <div className="logo">
                 <h1>
-                  <Link to="/home" className=" d-flex align-items-center gap-2">
-                    <i class="ri-car-line"></i>
+                  <Link to="/home" className="d-flex align-items-center gap-2">
+                    <i className="ri-car-line"></i>
                     <span>
                       Rent Car <br /> Service
                     </span>
@@ -83,7 +84,7 @@ const Header = () => {
             <Col lg="3" md="3" sm="4">
               <div className="header__location d-flex align-items-center gap-2">
                 <span>
-                  <i class="ri-earth-line"></i>
+                  <i className="ri-earth-line"></i>
                 </span>
                 <div className="header__location-content">
                   <h4>France</h4>
@@ -95,7 +96,7 @@ const Header = () => {
             <Col lg="3" md="3" sm="4">
               <div className="header__location d-flex align-items-center gap-2">
                 <span>
-                  <i class="ri-time-line"></i>
+                  <i className="ri-time-line"></i>
                 </span>
                 <div className="header__location-content">
                   <h4>Du lundi au vendredi</h4>
@@ -104,15 +105,10 @@ const Header = () => {
               </div>
             </Col>
 
-            <Col
-              lg="2"
-              md="3"
-              sm="0"
-              className=" d-flex align-items-center justify-content-end "
-            >
-              <button className="header__btn btn ">
+            <Col lg="2" md="3" sm="0" className="d-flex align-items-center justify-content-end">
+              <button className="header__btn btn">
                 <Link to="/contact">
-                  <i class="ri-phone-line"></i> Demander un appel
+                  <i className="ri-phone-line"></i> Demander un appel
                 </Link>
               </button>
             </Col>
@@ -121,12 +117,11 @@ const Header = () => {
       </div>
 
       {/* ========== main navigation =========== */}
-
       <div className="main__navbar">
         <Container>
           <div className="navigation__wrapper d-flex align-items-center justify-content-between">
             <span className="mobile__menu">
-              <i class="ri-menu-line" onClick={toggleMenu}></i>
+              <i className="ri-menu-line" onClick={toggleMenu}></i>
             </span>
 
             <div className="navigation" ref={menuRef} onClick={toggleMenu}>
@@ -149,7 +144,7 @@ const Header = () => {
               <div className="search__box">
                 <input type="text" placeholder="Search" />
                 <span>
-                  <i class="ri-search-line"></i>
+                  <i className="ri-search-line"></i>
                 </span>
               </div>
             </div>

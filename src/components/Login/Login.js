@@ -26,8 +26,12 @@ const Login = () => {
       }
 
       const data = await response.json();
+      // Sauvegarde du token dans localStorage
+      localStorage.setItem('token', data.token);
+
       alert('Connexion réussie !');
       navigate('/home');
+      window.location.reload(); // Recharge la page pour mettre à jour l'interface
     } catch (error) {
       console.error('Erreur lors de la connexion:', error);
       alert('Erreur lors de la connexion');

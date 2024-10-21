@@ -10,7 +10,7 @@ import NotFound from "../pages/NotFound";
 import Contact from "../pages/Contact";
 import Signup from "../components/Signup/Signup";
 import Login from "../components/Login/Login";
-import Profile from "../pages/Profile"; // Page pour le profil utilisateur (exemple)
+import Profile from "../components/Profile/Profile"
 
 // Fonction pour vérifier l'authentification (simulée avec localStorage)
 const isAuthenticated = () => {
